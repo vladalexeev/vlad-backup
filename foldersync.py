@@ -3,6 +3,7 @@ import os
 import shutil
 from os import listdir
 from os.path import isdir, isfile, join, exists, getmtime, getsize
+from datetime import datetime
 
 class FolderSync:
     
@@ -17,8 +18,10 @@ class FolderSync:
         self.deleted_foldes = 0
         
     def run(self):
+        start_time = datetime.now()
         self._run('')
         print('----------------------')
+        print('Work time = {}'.format(datetime.now() - start_time))
         print('New folders = {}'.format(self.new_folders))
         print('Deleted folders = {}'.format(self.deleted_foldes))
         print('New fildes = {}'.format(self.new_files))
