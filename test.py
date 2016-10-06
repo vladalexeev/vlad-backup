@@ -15,7 +15,7 @@ import os
 file_util.roll_file_stack('D:\\VladWork\\Sites\\zkaluga-test{}.zip', 5)
 
 shutil.make_archive(
-    'D:\\VladWork\\Sites\zkaluga-test', 
+    'D:\\VladWork\\Sites\\zkaluga-test\\', 
     'zip',
     'D:\\VladWork\\Sites',
     'zkaluga.avhost.info')
