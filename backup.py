@@ -34,8 +34,8 @@ shutil.make_archive(
 print('Archive: unprocessed images')
 file_util.roll_file_stack(FROM_INET_FOLDER+'Important\\unprocessed_images{}.zip', 2)
 shutil.make_archive(
-    FROM_INET_FOLDER+'unprocessed_images', 
-    'zip', FROM_INET_FOLDER,
+    FROM_INET_FOLDER+'Important\\unprocessed_images', 
+    'zip', FROM_INET_FOLDER+'Important\\',
     'unprocessed_images')
 
 
