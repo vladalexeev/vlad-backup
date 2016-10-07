@@ -2,6 +2,7 @@ import foldersync
 import file_util
 
 import shutil
+from datetime import datetime
 
 
 SITES_FOLDER = 'D:\\VladWork\\Sites\\'
@@ -11,6 +12,7 @@ ONE_DRIVE_BACKUP = 'D:\\VladWork\\OneDrive\\Backup\\'
 LENOVO_BACKUP = '\\\\LENOVO-PC\\Vlad\\Backup\\'
 
 
+start_time = datetime.now()
 
 print('Synchronize with OneDrive: impossible')
 foldersync.sync(SITES_FOLDER+'impossible', 
@@ -49,4 +51,5 @@ file_util.roll_file_stack(LENOVO_BACKUP+'unprocessed_images{}.zip', 2)
 shutil.copy2(FROM_INET_FOLDER+'Important\\unprocessed_images.zip', LENOVO_BACKUP+'unprocessed_images.zip')
 
 
-print('Finished!')
+print('')
+print('Finished! {}'.format(datetime.now() - start_time))
