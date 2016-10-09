@@ -33,12 +33,12 @@ shutil.make_archive(
     'zip', SITES_FOLDER,
     'impossible')
 
-print('Archive: unprocessed images')
-file_util.roll_file_stack(FROM_INET_FOLDER+'Important\\unprocessed_images{}.zip', 2)
-shutil.make_archive(
-    FROM_INET_FOLDER+'Important\\unprocessed_images', 
-    'zip', FROM_INET_FOLDER+'Important\\',
-    'unprocessed_images')
+# print('Archive: unprocessed images')
+# file_util.roll_file_stack(FROM_INET_FOLDER+'Important\\unprocessed_images{}.zip', 2)
+# shutil.make_archive(
+#     FROM_INET_FOLDER+'Important\\unprocessed_images', 
+#     'zip', FROM_INET_FOLDER+'Important\\',
+#     'unprocessed_images')
 
 
 print('Copy to Lenovo: impossible.zip')
@@ -46,9 +46,9 @@ file_util.roll_file_stack(LENOVO_BACKUP+'impossible{}.zip', 5)
 shutil.copy2(SITES_FOLDER+'impossible.zip', LENOVO_BACKUP+'impossible.zip')
 
 
-print('Copy to Lenovo: unprocessed_images.zip')
-file_util.roll_file_stack(LENOVO_BACKUP+'unprocessed_images{}.zip', 2)
-shutil.copy2(FROM_INET_FOLDER+'Important\\unprocessed_images.zip', LENOVO_BACKUP+'unprocessed_images.zip')
+# print('Copy to Lenovo: unprocessed_images.zip')
+# file_util.roll_file_stack(LENOVO_BACKUP+'unprocessed_images{}.zip', 2)
+# shutil.copy2(FROM_INET_FOLDER+'Important\\unprocessed_images.zip', LENOVO_BACKUP+'unprocessed_images.zip')
 
 
 print('')

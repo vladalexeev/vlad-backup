@@ -1,4 +1,5 @@
 import foldersync
+import foldersync2
 import file_util
 
 import shutil
@@ -12,12 +13,19 @@ import os
 #                 '\\\\LENOVO-PC\\Vlad\\Backup\\IMP_SORTED',
 #                 test=True)
 
-file_util.roll_file_stack('D:\\VladWork\\Sites\\zkaluga-test{}.zip', 5)
+# file_util.roll_file_stack('D:\\VladWork\\Sites\\zkaluga-test{}.zip', 5)
+# 
+# shutil.make_archive(
+#     'D:\\VladWork\\Sites\\zkaluga-test\\', 
+#     'zip',
+#     'D:\\VladWork\\Sites',
+#     'zkaluga.avhost.info')
 
-shutil.make_archive(
-    'D:\\VladWork\\Sites\\zkaluga-test\\', 
-    'zip',
-    'D:\\VladWork\\Sites',
-    'zkaluga.avhost.info')
+
+foldersync2.sync('d:\\Temp\\test\\zkaluga.avhost.info', 
+                 'd:\\Temp\\test\\backup', 
+                 'd:\\Temp\\test\\sync.prop', 
+                 False)
+
 
 print('Finished!')
