@@ -27,6 +27,9 @@ class FolderSync2:
     def run(self):
         start_time = datetime.now()
         
+        if not exists(self.dst_folder):
+            os.makedirs(self.dst_folder)
+        
         if exists(self.sync_file):
             self.prev_sync = pickle.load(open(self.sync_file, 'rb'))
         else:

@@ -21,14 +21,13 @@ class FolderSync:
         start_time = datetime.now()
         self._run('')
         
-        print('----------------------')
         print('Work time = {}'.format(datetime.now() - start_time))
         if self.new_files == 0 and self.deleted_foldes == 0 and self.new_files == 0 and self.updated_files == 0 and self.deleted_files == 0:
             print('Nothing changed')
         else:
             print('New folders = {}'.format(self.new_folders))
             print('Deleted folders = {}'.format(self.deleted_foldes))
-            print('New fildes = {}'.format(self.new_files))
+            print('New files = {}'.format(self.new_files))
             print('Updated files = {}'.format(self.updated_files))
             print('Deleted files = {}'.format(self.deleted_files)) 
         
