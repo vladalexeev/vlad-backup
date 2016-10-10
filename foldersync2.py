@@ -4,6 +4,7 @@ import os
 import shutil
 from os.path import exists, join, isdir, isfile, getsize, getmtime
 from datetime import datetime
+from file_util import long_file_name
 
 FILES = 'files'
 FOLDERS = 'folders'
@@ -106,11 +107,17 @@ class FolderSync2:
     def _mkdir(self, dir_name):
         print('mkdir: {}'.format(dir_name))
         if not self.test:
-            os.makedirs(join(self.dst_folder, dir_name))
+            abs_path = join(self.dst_folder, dir_name)
+            if not exists(abs_path):
+                os.makedirs(abs_path)
         self.new_folders += 1
         
     def _copy_from_to(self, from_file, to_file):
-        shutil.copy2(from_file, to_file)
+#         from_file = '\\\\?\\'+from_file
+#         to_file = '\\\\?\UNC\\'+to_file[2:]
+            
+        shutil.copy2(long_file_name(from_file), 
+                     long_file_name(to_file))
     
     def _copy_file(self, file_name):
         print('copy: {}'.format(file_name))

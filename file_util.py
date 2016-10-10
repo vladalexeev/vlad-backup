@@ -15,4 +15,9 @@ def roll_file_stack(base_name, stack_size=5):
     first_file = base_name.format('')
     if os.path.exists(first_file):
         os.rename(first_file, base_name.format('-1'))
-    
+        
+def long_file_name(abs_file_name):
+    if abs_file_name.startswith('\\\\'):
+        return '\\\\?\UNC\\'+abs_file_name[2:]
+    else:
+        return '\\\\?\\'+abs_file_name

@@ -19,21 +19,21 @@ start_time = datetime.now()
 print('Synchronize with OneDrive: impossible')
 foldersync.sync(SITES_FOLDER+'impossible', 
                 ONE_DRIVE_BACKUP+'impossible')
-
+ 
 print('Synchronize with OneDrive: zkaluga.avhost.info')
 foldersync.sync(SITES_FOLDER+'zkaluga.avhost.info', 
                 ONE_DRIVE_BACKUP+'zkaluga.avhost.info')
-
+ 
 print('Synchronize with Lenovo: impossible')
 foldersync2.sync(SITES_FOLDER+'impossible', 
                  LENOVO_BACKUP+'Sites\\impossible',
                  BACKUP_DATA_FOLDER+'impossible.data')
-
+ 
 print('Synchronize with Lenovo: zkaluga.avhost.info')
 foldersync2.sync(SITES_FOLDER+'zkaluga.avhost.info', 
                  LENOVO_BACKUP+'Sites\\zkaluga.avhost.info',
                  BACKUP_DATA_FOLDER+'zkaluga.avhost.info.data')
-
+ 
 print('Synchronize with Lenovo: IMP_SORTED')
 foldersync2.sync(FROM_INET_FOLDER+'Important\\IMP_SORTED', 
                  LENOVO_BACKUP+'IMP_SORTED',
