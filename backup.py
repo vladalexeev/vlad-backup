@@ -44,6 +44,11 @@ foldersync2.sync(FROM_INET_FOLDER+'Important\\unprocessed_images',
                  LENOVO_BACKUP+'unprocessed_images',
                  BACKUP_DATA_FOLDER+'unprocessed_images.data')
 
+print('Synchronize with Lenovo: Backup-Data')
+foldersync.sync(BACKUP_DATA_FOLDER, 
+                LENOVO_BACKUP+'Backup-data')
+
+
 
 # print('Archive: impossible')
 # file_util.roll_file_stack(SITES_FOLDER+'impossible{}.zip', 5)
