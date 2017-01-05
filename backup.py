@@ -50,6 +50,12 @@ foldersync2.sync(FROM_INET_FOLDER+'Important\\unprocessed_images',
                  BACKUP_DATA_FOLDER+'unprocessed_images.data')
 
 print('--------')
+print('Synchronize with Lenovo: impossible-video')
+foldersync2.sync(FROM_INET_FOLDER+'impossible-video', 
+                 LENOVO_BACKUP+'impossible-video',
+                 BACKUP_DATA_FOLDER+'impossible_video.data')
+
+print('--------')
 print('Synchronize with Lenovo: Backup-Data')
 foldersync.sync(BACKUP_DATA_FOLDER, 
                 LENOVO_BACKUP+'Backup-data')
