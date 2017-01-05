@@ -4,6 +4,7 @@ import shutil
 from os import listdir
 from os.path import isdir, isfile, join, exists, getmtime, getsize
 from datetime import datetime
+from file_util import str_file_size
 
 class FolderSync:
     
@@ -41,7 +42,7 @@ class FolderSync:
         shutil.copy2(from_file, to_file)
     
     def _copy_file(self, file_name):
-        print('copy: {}'.format(file_name))
+        print('copy: {} ({})'.format(file_name, str_file_size(join(self.src_folder, file_name))))
         if not self.test:
             self._copy_from_to(
                                join(self.src_folder, file_name), 
@@ -50,7 +51,7 @@ class FolderSync:
         self.new_files += 1
         
     def _update_file(self, file_name):
-        print('update: {}'.format(file_name))
+        print('update: {} ({})'.format(file_name, str_file_size(join(self.src_folder, file_name))))
         if not self.test:
             self._copy_from_to(
                                join(self.src_folder, file_name), 

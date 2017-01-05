@@ -21,3 +21,22 @@ def long_file_name(abs_file_name):
         return '\\\\?\UNC\\'+abs_file_name[2:]
     else:
         return '\\\\?\\'+abs_file_name
+    
+def str_file_size(file_path):
+    full_size = os.path.getsize(file_path)
+    return str_size(full_size)
+    
+def str_size(size):
+    size_kb = float(size) / 1024
+    if size_kb < 1024:
+        return '{:.1f} KB'.format(size_kb)
+    else:
+        size_mb = size_kb / 1024
+        return '{:.1f} MB'.format(size_mb)
+    
+    
+if __name__ == '__main__':
+    print(str_size(200))
+    print(str_size(2000))
+    print(str_size(20000))
+    print(str_size(2000000))
