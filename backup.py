@@ -1,64 +1,76 @@
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
+
+# import sys
+# import codecs
+# sys.stdout = codecs.getwriter('utf8')(sys.stdout)
+# sys.stderr = codecs.getwriter('utf8')(sys.stderr)
+
 import foldersync
 import foldersync2
-import file_util
-
-import shutil
 from datetime import datetime
 
 
-SITES_FOLDER = 'D:\\VladWork\\Sites\\'
-FROM_INET_FOLDER = 'D:\\From_Inet\\'
-BACKUP_DATA_FOLDER = 'D:\\Backup-data\\'
+SITES_FOLDER = u'D:\\VladWork\\Sites\\'
+FROM_INET_FOLDER = u'D:\\From_Inet\\'
+BACKUP_DATA_FOLDER = u'D:\\Backup-data\\'
 
-ONE_DRIVE_BACKUP = 'D:\\VladWork\\OneDrive\\Backup\\'
-LENOVO_BACKUP = '\\\\LENOVO-PC\\Vlad\\Backup\\'
+ONE_DRIVE_BACKUP = u'D:\\VladWork\\OneDrive\\Backup\\'
+LENOVO_BACKUP = u'\\\\LENOVO-PC\\Vlad\\Backup\\'
 
 
 start_time = datetime.now()
 
 print('Synchronize with OneDrive: impossible')
-foldersync.sync(SITES_FOLDER+'impossible', 
-                ONE_DRIVE_BACKUP+'impossible')
-
+foldersync.sync(SITES_FOLDER+u'impossible', 
+                ONE_DRIVE_BACKUP+u'impossible')
+  
 print('--------')
 print('Synchronize with OneDrive: zkaluga.avhost.info')
-foldersync.sync(SITES_FOLDER+'zkaluga.avhost.info', 
-                ONE_DRIVE_BACKUP+'zkaluga.avhost.info')
-
+foldersync.sync(SITES_FOLDER+u'zkaluga.avhost.info', 
+                ONE_DRIVE_BACKUP+u'zkaluga.avhost.info')
+  
 print('--------')
 print('Synchronize with Lenovo: impossible')
-foldersync2.sync(SITES_FOLDER+'impossible', 
-                 LENOVO_BACKUP+'Sites\\impossible',
-                 BACKUP_DATA_FOLDER+'impossible.data')
-
+foldersync2.sync(SITES_FOLDER+u'impossible', 
+                 LENOVO_BACKUP+u'Sites\\impossible',
+                 BACKUP_DATA_FOLDER+u'impossible.data')
+  
 print('--------')
 print('Synchronize with Lenovo: zkaluga.avhost.info')
-foldersync2.sync(SITES_FOLDER+'zkaluga.avhost.info', 
-                 LENOVO_BACKUP+'Sites\\zkaluga.avhost.info',
-                 BACKUP_DATA_FOLDER+'zkaluga.avhost.info.data')
+foldersync2.sync(SITES_FOLDER+u'zkaluga.avhost.info', 
+                 LENOVO_BACKUP+u'Sites\\zkaluga.avhost.info',
+                 BACKUP_DATA_FOLDER+u'zkaluga.avhost.info.data')
+
+print('--------')
+print('Synchronize with Lenovo: ART_SORTED')
+foldersync2.sync(FROM_INET_FOLDER+u'Important\\ART_SORTED', 
+                 LENOVO_BACKUP+u'ART_SORTED',
+                 BACKUP_DATA_FOLDER+u'ART_SORTED.data')
 
 print('--------')
 print('Synchronize with Lenovo: IMP_SORTED')
-foldersync2.sync(FROM_INET_FOLDER+'Important\\IMP_SORTED', 
-                 LENOVO_BACKUP+'IMP_SORTED',
-                 BACKUP_DATA_FOLDER+'IMP_SORTED.data')
+foldersync2.sync(FROM_INET_FOLDER+u'Important\\IMP_SORTED', 
+                 LENOVO_BACKUP+u'IMP_SORTED',
+                 BACKUP_DATA_FOLDER+u'IMP_SORTED.data')
 
 print('--------')
 print('Synchronize with Lenovo: unprocessed_images')
-foldersync2.sync(FROM_INET_FOLDER+'Important\\unprocessed_images', 
-                 LENOVO_BACKUP+'unprocessed_images',
-                 BACKUP_DATA_FOLDER+'unprocessed_images.data')
+foldersync2.sync(FROM_INET_FOLDER+u'Important\\unprocessed_images', 
+                 LENOVO_BACKUP+u'unprocessed_images',
+                 BACKUP_DATA_FOLDER+u'unprocessed_images.data')
 
 print('--------')
 print('Synchronize with Lenovo: impossible-video')
-foldersync2.sync(FROM_INET_FOLDER+'impossible-video', 
-                 LENOVO_BACKUP+'impossible-video',
-                 BACKUP_DATA_FOLDER+'impossible_video.data')
+foldersync2.sync(FROM_INET_FOLDER+u'impossible-video', 
+                 LENOVO_BACKUP+u'impossible-video',
+                 BACKUP_DATA_FOLDER+u'impossible_video.data')
 
 print('--------')
 print('Synchronize with Lenovo: Backup-Data')
 foldersync.sync(BACKUP_DATA_FOLDER, 
-                LENOVO_BACKUP+'Backup-data')
+                LENOVO_BACKUP+u'Backup-data')
 
 
 

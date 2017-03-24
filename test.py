@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import foldersync
 import foldersync2
 import file_util
@@ -22,9 +23,9 @@ import os
 #     'zkaluga.avhost.info')
 
 
-foldersync2.sync('d:\\Temp\\test\\zkaluga.avhost.info', 
-                 'd:\\Temp\\test\\backup', 
-                 'd:\\Temp\\test\\sync.prop', 
+foldersync2.sync(u'd:\\Temp\\test\\zkaluga.avhost.info', 
+                 u'd:\\Temp\\test\\backup', 
+                 u'd:\\Temp\\test\\sync.prop', 
                  False)
 
 
