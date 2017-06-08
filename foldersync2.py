@@ -151,13 +151,15 @@ class FolderSync2:
         
         print('rmdir: {}'.format(dir_name))
         if not self.test:
-            os.rmdir(join(self.dst_folder, dir_name))
+            shutil.rmtree(join(self.dst_folder, dir_name))
         self.deleted_foldes += 1
     
     def _del_file(self, file_name):
         print('del: {}'.format(file_name))
         if not self.test:
-            os.remove(join(self.dst_folder, file_name))
+            full_file_name = join(self.dst_folder, file_name) 
+            if os.path.isfile(full_file_name):
+                os.remove(full_file_name)
         self.deleted_files += 1
         
             
