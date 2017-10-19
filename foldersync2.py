@@ -139,6 +139,9 @@ class FolderSync2:
     
     def _rmdir(self, dir_name):
         abs_dst_folder = join(self.dst_folder, dir_name)
+        if not os.path.exists(abs_dst_folder):
+            return
+        
         dst_folder_content = [join(dir_name, f) for f in os.listdir(abs_dst_folder)]
         dir_list = sorted([f for f in dst_folder_content if isdir(join(self.dst_folder, f))])
         file_list = sorted([f for f in dst_folder_content if isfile(join(self.dst_folder, f))])
