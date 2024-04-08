@@ -91,7 +91,7 @@ class FolderSync:
         
         src_size = getsize(abs_src_file)
         dst_size = getsize(abs_dst_file)
-        if src_size <> dst_size:
+        if src_size != dst_size:
             return False
         
         src_mtime = getmtime(abs_src_file)

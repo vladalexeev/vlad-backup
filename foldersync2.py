@@ -64,7 +64,7 @@ class FolderSync2:
         src_dir_list = sorted([f for f in src_folder_content if isdir(join(self.src_folder, f))])
         src_file_list = sorted([f for f in src_folder_content if isfile(join(self.src_folder, f))])
         
-        if folder_name <> '' and folder_name not in self.prev_sync[FOLDERS]:
+        if folder_name != '' and folder_name not in self.prev_sync[FOLDERS]:
             self._mkdir(folder_name)
         
         for file_name in src_file_list:
@@ -78,7 +78,7 @@ class FolderSync2:
             
             if file_name in self.prev_sync[FILES]:
                 prev_attr = self.prev_sync[FILES][file_name]
-                if prev_attr[FILE_SIZE] <> file_size or prev_attr[FILE_TIME] <> file_time:
+                if prev_attr[FILE_SIZE] != file_size or prev_attr[FILE_TIME] != file_time:
                     self._update_file(file_name)
             else:
                 self._copy_file(file_name)

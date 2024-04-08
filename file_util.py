@@ -18,7 +18,7 @@ def roll_file_stack(base_name, stack_size=5):
         
 def long_file_name(abs_file_name):
     if abs_file_name.startswith('\\\\'):
-        return '\\\\?\UNC\\'+abs_file_name[2:]
+        return '\\\\?\\UNC\\'+abs_file_name[2:]
     else:
         return '\\\\?\\'+abs_file_name
     
