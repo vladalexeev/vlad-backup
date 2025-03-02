@@ -7,7 +7,7 @@ from foldersync2_sftp import sync_sftp
 # TEST_SITE_SYNC_FILE = 'C:\\VladWork\\Backup-data\\firstvds-test-site-data.json'
 
 IM_POSSIBLE_SITE_LOCAL_PATH = 'C:\\VladWork\\Sites\\impossible\\impossible'
-IM_POSSIBLE_SITE_REMOTE_PATH = '/var/www/im-possible'
+IM_POSSIBLE_SITE_REMOTE_PATH = '/var/www/im-possible.info'
 IM_POSSIBLE_SITE_SYNC_FILE = 'C:\\VladWork\\Backup-data\\firstvds-im-possible-data.json'
 
 
@@ -19,12 +19,16 @@ with open(TEST_SITE_CREDENTIALS, 'r', encoding='utf-8') as f:
 sync_sftp(
     IM_POSSIBLE_SITE_LOCAL_PATH,
     IM_POSSIBLE_SITE_REMOTE_PATH,
+    [
+        '.eclipse-web-kit',
+        '.settings',
+        '.vscode',
+    ],
     IM_POSSIBLE_SITE_SYNC_FILE,
     remote_host_props['hostname'],
     remote_host_props['port'],
     remote_host_props['username'],
-    remote_host_props['password'],
-    True
+    remote_host_props['password']
 )
 
 

@@ -19,6 +19,7 @@ class FolderSync2_SFTP:
             self,
             src_folder: str,
             dst_folder: str,
+            skip_paths: list[str],
             sync_file: str,
             hostname: str,
             port: int,
@@ -27,6 +28,7 @@ class FolderSync2_SFTP:
             test=False):
         self.src_folder = src_folder
         self.dst_folder = dst_folder
+        self.skip_paths = skip_paths
         self.sync_file = sync_file
         self.current_sync = None
         self.hostname = hostname
@@ -88,7 +90,12 @@ class FolderSync2_SFTP:
             print('New files = {}'.format(self.new_files))
             print('Updated files = {}'.format(self.updated_files))
             print('Deleted files = {}'.format(self.deleted_files)) 
-        
+
+    def _can_skip_file(self, file_name: str) -> bool:
+        for skip_path in self.skip_paths:
+            if file_name.startswith(skip_path):
+                return True
+        return False
         
     def _run_copy_and_update_files(self, folder_name):
         abs_src_folder = join(self.src_folder, folder_name)
@@ -100,6 +107,9 @@ class FolderSync2_SFTP:
             self._mkdir(folder_name)
         
         for file_name in src_file_list:
+            if self._can_skip_file(file_name):
+                continue
+
             abs_file_name = join(self.src_folder, file_name)
             file_size = getsize(abs_file_name)
             file_time = getmtime(abs_file_name)
@@ -148,7 +158,8 @@ class FolderSync2_SFTP:
         self.new_folders += 1
         
     def _copy_from_to(self, from_file, to_file):
-        self.sftp.put(from_file, to_file.replace('\\', '/'))
+        target_file = to_file.replace('\\', '/')
+        self.sftp.put(from_file, target_file)
     
     def _copy_file(self, file_name):
         print('copy: {} ({})'.format(file_name, str_file_size(join(self.src_folder, file_name))))
@@ -192,12 +203,17 @@ class FolderSync2_SFTP:
         print('del: {}'.format(file_name))
         if not self.test:
             full_file_name = join(self.dst_folder, file_name).replace('\\', '/')
-            self.sftp.remove(full_file_name)
+            try:
+                self.sftp.remove(full_file_name)
+            except FileNotFoundError:
+                pass
         self.deleted_files += 1
         
             
-def sync_sftp(src_folder, dst_folder, sync_file, hostname, port, username, password, test=False):
-    fs = FolderSync2_SFTP(src_folder, dst_folder, sync_file, hostname, port, username, password, test)
+def sync_sftp(src_folder, dst_folder, skip_paths, sync_file, hostname, port, username, password, test=False):
+    fs = FolderSync2_SFTP(
+        src_folder, dst_folder, skip_paths, sync_file, hostname, port, username, password, test
+    )
     fs.run()
         
     

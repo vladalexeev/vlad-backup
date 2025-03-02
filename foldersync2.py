@@ -1,5 +1,4 @@
-# -*- coding: utf-8 -*-
-import pickle
+import json
 import os
 import shutil
 from os.path import exists, join, isdir, isfile, getsize, getmtime
@@ -32,7 +31,8 @@ class FolderSync2:
             os.makedirs(self.dst_folder)
         
         if exists(self.sync_file):
-            self.prev_sync = pickle.load(open(self.sync_file, 'rb'))
+            with open(self.sync_file, 'r', encoding='utf-8') as f:
+                self.prev_sync = json.load(f)
         else:
             self.prev_sync = {
                 FILES: {},
@@ -44,8 +44,9 @@ class FolderSync2:
         self._run_copy_and_update_files('')
         self._run_delete_files()
         self._run_delete_folders()
-        
-        pickle.dump(self.current_sync, open(self.sync_file, 'wb'), 2)
+
+        with open(self.sync_file, 'w', encoding='utf-8') as f:
+            json.dump(self.current_sync, f)
         
         print('Work time = {}'.format(datetime.now() - start_time))
         if self.new_files == 0 and self.deleted_foldes == 0 and self.new_files == 0 and self.updated_files == 0 and self.deleted_files == 0:
