@@ -72,6 +72,11 @@ try:
                     LENOVO_BACKUP+'Music-car')
 
     print('--------')
+    print('Synchronize with Lenovo: grid-paint-backup')
+    foldersync.sync('C:\\VladWork\\grid-paint-backup',
+                    LENOVO_BACKUP+'grid-paint-backup')
+
+    print('--------')
     print('Synchronize with Lenovo: Backup-Data')
     foldersync.sync(BACKUP_DATA_FOLDER,
                     LENOVO_BACKUP+'Backup-data')
