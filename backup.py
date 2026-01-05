@@ -8,6 +8,7 @@ import foldersync
 import foldersync2
 from datetime import datetime
 
+from calc_util import TotalCounter
 
 SITES_FOLDER = 'C:\\VladWork\\Sites\\'
 FROM_INET_FOLDER = 'C:\\VladWork\\From_Inet\\'
@@ -18,6 +19,8 @@ LENOVO_BACKUP = '\\\\LENOVO-PC\\Vlad\\Backup\\'
 
 
 start_time = datetime.now()
+
+lenovo_total_result = TotalCounter()
 
 try:
 
@@ -36,74 +39,87 @@ try:
 
     print('--------')
     print('Synchronize with Lenovo: impossible')
-    foldersync2.sync(
+    r = foldersync2.sync(
         SITES_FOLDER+'impossible',
         LENOVO_BACKUP+'Sites\\impossible',
         BACKUP_DATA_FOLDER+'impossible.data.json'
     )
+    lenovo_total_result.add_sync_result(r)
 
     print('--------')
     print('Synchronize with Lenovo: zkaluga.avhost.info')
-    foldersync2.sync(
+    r = foldersync2.sync(
         SITES_FOLDER+'zkaluga.avhost.info',
         LENOVO_BACKUP+'Sites\\zkaluga.avhost.info',
         BACKUP_DATA_FOLDER+'zkaluga.avhost.info.data.json'
     )
+    lenovo_total_result.add_sync_result(r)
 
     print('--------')
     print('Synchronize with Lenovo: ART_SORTED')
-    foldersync2.sync(
+    r = foldersync2.sync(
         FROM_INET_FOLDER+'Important\\ART_SORTED',
         LENOVO_BACKUP+'ART_SORTED',
         BACKUP_DATA_FOLDER+'ART_SORTED.data.json'
     )
+    lenovo_total_result.add_sync_result(r)
 
     print('--------')
     print('Synchronize with Lenovo: IMP_SORTED')
-    foldersync2.sync(
+    r = foldersync2.sync(
         FROM_INET_FOLDER+'Important\\IMP_SORTED',
         LENOVO_BACKUP+'IMP_SORTED',
         BACKUP_DATA_FOLDER+'IMP_SORTED.data.json'
     )
+    lenovo_total_result.add_sync_result(r)
 
     print('--------')
     print('Synchronize with Lenovo: unprocessed_images')
-    foldersync2.sync(
+    r = foldersync2.sync(
         FROM_INET_FOLDER+'Important\\unprocessed_images',
         LENOVO_BACKUP+'unprocessed_images',
         BACKUP_DATA_FOLDER+'unprocessed_images.data.json'
     )
+    lenovo_total_result.add_sync_result(r)
 
     print('--------')
     print('Synchronize with Lenovo: impossible-video')
-    foldersync2.sync(
+    r = foldersync2.sync(
         FROM_INET_FOLDER+'impossible-video',
         LENOVO_BACKUP+'impossible-video',
         BACKUP_DATA_FOLDER+'impossible_video.data.json'
     )
+    lenovo_total_result.add_sync_result(r)
 
     print('--------')
     print('Synchronize with Lenovo: Music-car')
-    foldersync.sync(
+    r = foldersync.sync(
         'C:\\VladWork\\Music-car',
         LENOVO_BACKUP+'Music-car'
     )
+    lenovo_total_result.add_sync_result(r)
 
     print('--------')
     print('Synchronize with Lenovo: grid-paint-backup')
-    foldersync.sync(
+    r = foldersync.sync(
         'C:\\VladWork\\grid-paint-backup',
         LENOVO_BACKUP+'grid-paint-backup'
     )
+    lenovo_total_result.add_sync_result(r)
 
     print('--------')
     print('Synchronize with Lenovo: Backup-Data')
-    foldersync.sync(
+    r = foldersync.sync(
         BACKUP_DATA_FOLDER,
         LENOVO_BACKUP+'Backup-data'
     )
+    lenovo_total_result.add_sync_result(r)
 
     print('')
+    print('')
+    print('==========')
+    print('Total result of sync with Lenovo:')
+    lenovo_total_result.print()
     print('Finished! {}'.format(datetime.now() - start_time))
 
     input("Press Enter to continue...")
