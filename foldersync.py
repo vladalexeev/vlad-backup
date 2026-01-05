@@ -4,7 +4,8 @@ import shutil
 from os import listdir
 from os.path import isdir, isfile, join, exists, getmtime, getsize
 from datetime import datetime
-from file_util import str_file_size
+from file_util import str_file_size, file_size, str_size, str_size_ex
+
 
 class FolderSync:
     
@@ -17,6 +18,9 @@ class FolderSync:
         self.deleted_files = 0
         self.new_folders = 0
         self.deleted_foldes = 0
+        self.new_file_size = 0
+        self.updated_file_size = 0
+        self.deleted_file_size = 0
         
     def run(self):
         start_time = datetime.now()
@@ -26,11 +30,11 @@ class FolderSync:
         if self.new_files == 0 and self.deleted_foldes == 0 and self.new_files == 0 and self.updated_files == 0 and self.deleted_files == 0:
             print('Nothing changed')
         else:
-            print('New folders = {}'.format(self.new_folders))
-            print('Deleted folders = {}'.format(self.deleted_foldes))
-            print('New files = {}'.format(self.new_files))
-            print('Updated files = {}'.format(self.updated_files))
-            print('Deleted files = {}'.format(self.deleted_files)) 
+            print(f'New folders = {self.new_folders}')
+            print(f'Deleted folders = {self.deleted_foldes}')
+            print(f'New files = {self.new_files} ({str_size_ex(self.new_file_size)})')
+            print(f'Updated files = {self.updated_files} ({str_size_ex(self.updated_file_size)})')
+            print(f'Deleted files = {self.deleted_files} ({str_size_ex(self.deleted_file_size)})')
         
     def _mkdir(self, dir_name):
         print('mkdir: {}'.format(dir_name))
@@ -42,23 +46,26 @@ class FolderSync:
         shutil.copy2(from_file, to_file)
     
     def _copy_file(self, file_name):
-        print('copy: {} ({})'.format(file_name, str_file_size(join(self.src_folder, file_name))))
+        file_path = join(self.src_folder, file_name)
+        print('copy: {} ({})'.format(file_name, str_file_size(file_path)))
         if not self.test:
             self._copy_from_to(
                                join(self.src_folder, file_name), 
                                join(self.dst_folder, file_name)
                                )
         self.new_files += 1
+        self.new_file_size += file_size(file_path)
         
     def _update_file(self, file_name):
-        print('update: {} ({})'.format(file_name, str_file_size(join(self.src_folder, file_name))))
+        src_file_path = join(self.src_folder, file_name)
+        dst_file_path = join(self.dst_folder, file_name)
+        print('update: {} ({})'.format(file_name, str_file_size(src_file_path)))
+
+        self.updated_file_size += file_size(src_file_path) - file_size(dst_file_path)
         if not self.test:
-            self._copy_from_to(
-                               join(self.src_folder, file_name), 
-                               join(self.dst_folder, file_name)
-                               )
+            self._copy_from_to(src_file_path, dst_file_path)
         self.updated_files += 1
-    
+
     def _rmdir(self, dir_name):
         abs_dst_folder = join(self.dst_folder, dir_name)
         dst_folder_content = [join(dir_name, f) for f in listdir(abs_dst_folder)]
@@ -78,8 +85,10 @@ class FolderSync:
     
     def _del_file(self, file_name):
         print('del: {}'.format(file_name))
+        dst_file_path = join(self.dst_folder, file_name)
+        self.deleted_file_size -= file_size(dst_file_path)
         if not self.test:
-            os.remove(join(self.dst_folder, file_name))
+            os.remove(dst_file_path)
         self.deleted_files += 1
     
     def _compare_files(self, file_name):
@@ -153,5 +162,6 @@ class FolderSync:
 def sync(src_folder, dst_folder, test=False):
     fs = FolderSync(src_folder, dst_folder, test)
     fs.run()
+    return fs
         
     

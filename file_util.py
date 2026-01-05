@@ -25,6 +25,9 @@ def long_file_name(abs_file_name):
 def str_file_size(file_path):
     full_size = os.path.getsize(file_path)
     return str_size(full_size)
+
+def file_size(file_path) -> int:
+    return os.path.getsize(file_path)
     
 def str_size(size):
     size_kb = float(size) / 1024
@@ -34,7 +37,23 @@ def str_size(size):
         size_mb = size_kb / 1024
         return '{:.1f} MB'.format(size_mb)
     
-    
+def str_size_ex(size):
+    if size < 0:
+        sign = '-'
+        size = abs(size)
+    elif size == 0:
+        sign = ''
+    else:
+        sign = '+'
+
+    size_kb = float(size) / 1024
+    if size_kb < 1024:
+        return sign + '{:.1f} KB'.format(size_kb)
+    else:
+        size_mb = size_kb / 1024
+        return sign + '{:.1f} MB'.format(size_mb)
+
+
 if __name__ == '__main__':
     print(str_size(200))
     print(str_size(2000))
