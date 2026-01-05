@@ -17,7 +17,7 @@ class FolderSync:
         self.updated_files = 0
         self.deleted_files = 0
         self.new_folders = 0
-        self.deleted_foldes = 0
+        self.deleted_folders = 0
         self.new_file_size = 0
         self.updated_file_size = 0
         self.deleted_file_size = 0
@@ -27,11 +27,11 @@ class FolderSync:
         self._run('')
         
         print('Work time = {}'.format(datetime.now() - start_time))
-        if self.new_files == 0 and self.deleted_foldes == 0 and self.new_files == 0 and self.updated_files == 0 and self.deleted_files == 0:
+        if self.new_files == 0 and self.deleted_folders == 0 and self.new_files == 0 and self.updated_files == 0 and self.deleted_files == 0:
             print('Nothing changed')
         else:
             print(f'New folders = {self.new_folders}')
-            print(f'Deleted folders = {self.deleted_foldes}')
+            print(f'Deleted folders = {self.deleted_folders}')
             print(f'New files = {self.new_files} ({str_size_ex(self.new_file_size)})')
             print(f'Updated files = {self.updated_files} ({str_size_ex(self.updated_file_size)})')
             print(f'Deleted files = {self.deleted_files} ({str_size_ex(self.deleted_file_size)})')
@@ -81,7 +81,7 @@ class FolderSync:
         print('rmdir: {}'.format(dir_name))
         if not self.test:
             os.rmdir(join(self.dst_folder, dir_name))
-        self.deleted_foldes += 1
+        self.deleted_folders += 1
     
     def _del_file(self, file_name):
         print('del: {}'.format(file_name))

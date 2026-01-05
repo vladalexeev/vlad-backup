@@ -40,7 +40,7 @@ class FolderSync2_SFTP:
         self.updated_files = 0
         self.deleted_files = 0
         self.new_folders = 0
-        self.deleted_foldes = 0
+        self.deleted_folders = 0
         self.ssh = None
         self.sftp = None
         
@@ -82,11 +82,11 @@ class FolderSync2_SFTP:
             json.dump(self.current_sync, f)
         
         print('Work time = {}'.format(datetime.now() - start_time))
-        if self.new_files == 0 and self.deleted_foldes == 0 and self.new_files == 0 and self.updated_files == 0 and self.deleted_files == 0:
+        if self.new_files == 0 and self.deleted_folders == 0 and self.new_files == 0 and self.updated_files == 0 and self.deleted_files == 0:
             print('Nothing changed')
         else:
             print('New folders = {}'.format(self.new_folders))
-            print('Deleted folders = {}'.format(self.deleted_foldes))
+            print('Deleted folders = {}'.format(self.deleted_folders))
             print('New files = {}'.format(self.new_files))
             print('Updated files = {}'.format(self.updated_files))
             print('Deleted files = {}'.format(self.deleted_files)) 
@@ -197,7 +197,7 @@ class FolderSync2_SFTP:
         print('rmdir: {}'.format(dir_name))
         if not self.test:
             self.sftp.rmdir(join(self.dst_folder, dir_name).replace('\\', '/'))
-        self.deleted_foldes += 1
+        self.deleted_folders += 1
     
     def _del_file(self, file_name):
         print('del: {}'.format(file_name))
