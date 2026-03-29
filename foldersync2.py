@@ -1,6 +1,7 @@
 import json
 import os
 import shutil
+from copy import deepcopy
 from os.path import exists, join, isdir, isfile, getsize, getmtime
 from datetime import datetime
 from file_util import long_file_name, str_file_size, file_size, str_size, str_size_ex
@@ -26,6 +27,10 @@ class FolderSync2:
         self.new_file_size = 0
         self.updated_file_size = 0
         self.deleted_file_size = 0
+        self.prev_sync = None
+        self.temp_current_sync = None
+        self.current_sync = None
+        self.last_temp_current_sync_saved = 0
         
     def run(self):
         start_time = datetime.now()
@@ -40,6 +45,7 @@ class FolderSync2:
             self.prev_sync = {
                 FILES: {},
                 FOLDERS: []}
+        self.temp_current_sync = deepcopy(self.prev_sync)
         self.current_sync = {
             FILES: {},
             FOLDERS: []}    
@@ -78,7 +84,11 @@ class FolderSync2:
             self.current_sync[FILES][file_name] = {
                 FILE_SIZE: file_size,
                 FILE_TIME: file_time
-                }
+            }
+            self.temp_current_sync[FILES][file_name] = {
+                FILE_SIZE: file_size,
+                FILE_TIME: file_time
+            }
             
             if file_name in self.prev_sync[FILES]:
                 prev_attr = self.prev_sync[FILES][file_name]
@@ -86,7 +96,15 @@ class FolderSync2:
                     self._update_file(file_name)
             else:
                 self._copy_file(file_name)
-                
+
+            total_files_changed = self.new_files + self.updated_files
+            if total_files_changed - self.last_temp_current_sync_saved == 1000:
+                print('>>>>>>>>>>>>=============-----------=============<<<<<<<<<<<')
+                print('')
+                with open(self.sync_file, 'w', encoding='utf-8') as f:
+                    json.dump(self.temp_current_sync, f)
+                self.last_temp_current_sync_saved = total_files_changed
+
         for dir_name in src_dir_list:
             self.current_sync[FOLDERS].append(dir_name)
             self._run_copy_and_update_files(dir_name)
