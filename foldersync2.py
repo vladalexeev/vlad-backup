@@ -1,6 +1,7 @@
 import json
 import os
 import shutil
+import stat
 from copy import deepcopy
 from os.path import exists, join, isdir, isfile, getsize, getmtime
 from datetime import datetime
@@ -187,6 +188,7 @@ class FolderSync2:
             self.deleted_file_size -= file_size(full_file_name)
         if not self.test:
             if os.path.isfile(full_file_name):
+                os.chmod(long_file_name(full_file_name), stat.S_IWRITE)  # drop attribute read-only
                 os.remove(full_file_name)
         self.deleted_files += 1
         
